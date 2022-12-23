@@ -8,8 +8,8 @@ import { Term } from "../term";
  *        const equation2 = new Equation([new Term("5*X^0")], [new Term("4*X^2")]);
  */
 export class Equation {
-  private lhs: Term[] = [];
-  private rhs: Term[] = [];
+  public lhs: Term[] = [];
+  public rhs: Term[] = [];
 
   constructor(lhs: string, rhs: string);
   constructor(lhs: Term[], rhs: Term[]);
@@ -55,7 +55,13 @@ export class Equation {
     return `${lhs} = ${rhs}`;
   }
 
-  public solveQuadratic(): number[] {
+  public solveEquation(): number[] {
+    const degree = this.lhs.length - 1;
+    if (degree === 2) return this.solveQuadratic();
+    return [];
+  }
+
+  private solveQuadratic(): number[] {
     const a = this.lhs[2].coefficient;
     const b = this.lhs[1].coefficient;
     const c = this.lhs[0].coefficient;

@@ -5,8 +5,7 @@ const [lhs, rhs] = parseArgs(process.argv);
 
 let equation = new Equation(lhs, rhs);
 const reduced = equation.reduce();
-const result = reduced.solveQuadratic();
 
 console.log(`Reduced form: ${reduced.toString()}`);
-console.log(`Polynomial degree: ${result.length}`);
-console.log(`Solution:\n${result.join("\n")}`);
+console.log(`Polynomial degree: ${reduced.lhs.length - 1}`);
+console.log(`Solution:\n${reduced.solveEquation().join("\n")}`);
