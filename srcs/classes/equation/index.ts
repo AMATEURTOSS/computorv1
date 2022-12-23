@@ -1,1 +1,1 @@
-export * from "./Equation";
+export * from "./equation";
