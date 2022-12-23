@@ -57,11 +57,11 @@ export class Equation {
 
   public solveEquation(): number[] {
     const degree = this.lhs.length - 1;
-    if (degree === 2) return this.solveQuadratic();
+    if (degree === 2) return this.solveQuadraticEquation();
     return [];
   }
 
-  private solveQuadratic(): number[] {
+  private solveQuadraticEquation(): number[] {
     const a = this.lhs[2].coefficient;
     const b = this.lhs[1].coefficient;
     const c = this.lhs[0].coefficient;
