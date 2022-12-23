@@ -42,4 +42,15 @@ export class Equation {
     }, []);
     return new Equation(reducedLhs, []); // rhs should be empty
   }
+
+  /**
+   * @name toString
+   */
+  public toString(): string {
+    const lhs: string | number = this.lhs.map((term) => term.toString()).join(" + ");
+    const rhs: string | number = this.rhs.map((term) => term.toString()).join(" + ");
+    if (lhs === "") return `0 = ${rhs}`;
+    if (rhs === "") return `${lhs} = 0`;
+    return `${lhs} = ${rhs}`;
+  }
 }

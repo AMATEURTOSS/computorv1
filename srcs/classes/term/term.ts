@@ -21,4 +21,11 @@ export class Term {
       this.exponent = arg2 as number;
     }
   }
+
+  /**
+   * @name toString
+   */
+  public toString(): string {
+    return `(${this.coefficient} * X ^ ${this.exponent})`;
+  }
 }
