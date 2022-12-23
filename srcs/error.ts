@@ -21,3 +21,9 @@ export class InvalidTermError extends Error {
     super("Invalid term");
   }
 }
+
+export class TooHighExponentError extends Error {
+  constructor() {
+    super("Exponent is grater than 2");
+  }
+}

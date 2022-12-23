@@ -1,4 +1,4 @@
-import { InvalidTermError } from "../../error";
+import { InvalidTermError, TooHighExponentError } from "../../error";
 
 /**
  * @name Term
@@ -12,5 +12,6 @@ export class Term {
     this.coefficient = +coefficient;
     this.exponent = +exponent;
     if (isNaN(this.coefficient) || isNaN(this.exponent)) throw new InvalidTermError();
+    if (this.exponent > 2) throw new TooHighExponentError();
   }
 }
