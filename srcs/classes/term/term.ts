@@ -4,8 +4,8 @@ import { InvalidTermError, TooHighExponentError } from "../../error";
  * @name Term
  */
 export class Term {
-  private readonly coefficient: number;
-  private readonly exponent: number;
+  public readonly coefficient: number;
+  public readonly exponent: number;
 
   constructor(term: string) {
     const [coefficient, exponent] = term.split(/\*X\^|\*x\^/g);
