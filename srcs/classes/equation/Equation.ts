@@ -1,4 +1,4 @@
-import { Term } from "./Term";
+import { Term } from "../term";
 
 /**
  * @name Equation

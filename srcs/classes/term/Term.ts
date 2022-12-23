@@ -1,4 +1,4 @@
-import { InvalidTermError } from "./error";
+import { InvalidTermError } from "../../error";
 
 /**
  * @name Term
