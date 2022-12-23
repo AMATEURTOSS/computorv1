@@ -55,7 +55,7 @@ export class Equation {
     return `${lhs} = ${rhs}`;
   }
 
-  public get result(): number[] {
+  public solveQuadratic(): number[] {
     const a = this.lhs[2].coefficient;
     const b = this.lhs[1].coefficient;
     const c = this.lhs[0].coefficient;
