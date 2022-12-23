@@ -4,14 +4,21 @@ import { InvalidTermError, TooHighExponentError } from "../../error";
  * @name Term
  */
 export class Term {
-  public readonly coefficient: number;
-  public readonly exponent: number;
+  public coefficient: number;
+  public exponent: number;
 
-  constructor(term: string) {
-    const [coefficient, exponent] = term.split(/\*X\^|\*x\^/g);
-    this.coefficient = +coefficient;
-    this.exponent = +exponent;
-    if (isNaN(this.coefficient) || isNaN(this.exponent)) throw new InvalidTermError();
-    if (this.exponent > 2) throw new TooHighExponentError();
+  constructor(term: string);
+  constructor(coefficient: number, exponent: number);
+  constructor(arg1: string | number, arg2?: number) {
+    if (typeof arg1 === "string") {
+      const [coefficient, exponent] = arg1.split(/\*X\^|\*x\^/g);
+      this.coefficient = +coefficient;
+      this.exponent = +exponent;
+      if (isNaN(this.coefficient) || isNaN(this.exponent)) throw new InvalidTermError();
+      if (this.exponent > 2) throw new TooHighExponentError();
+    } else {
+      this.coefficient = arg1;
+      this.exponent = arg2 as number;
+    }
   }
 }
