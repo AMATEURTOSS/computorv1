@@ -15,3 +15,9 @@ export class InvalidEquationError extends Error {
     super("Invalid equation");
   }
 }
+
+export class InvalidTermError extends Error {
+  constructor() {
+    super("Invalid term");
+  }
+}
