@@ -1,3 +1,4 @@
+import { Math } from "../math";
 import { Term } from "../term";
 
 /**
@@ -52,5 +53,12 @@ export class Equation {
     if (lhs === "") return `0 = ${rhs}`;
     if (rhs === "") return `${lhs} = 0`;
     return `${lhs} = ${rhs}`;
+  }
+
+  public get result(): number[] {
+    const a = this.lhs[2].coefficient;
+    const b = this.lhs[1].coefficient;
+    const c = this.lhs[0].coefficient;
+    return Math.quadratic(a, b, c);
   }
 }
