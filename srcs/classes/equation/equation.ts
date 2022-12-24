@@ -62,9 +62,9 @@ export class Equation {
   }
 
   private solveQuadraticEquation(): number[] {
-    const a = this.lhs[2].coefficient;
-    const b = this.lhs[1].coefficient;
-    const c = this.lhs[0].coefficient;
+    const a = this.lhs[2]?.coefficient ?? 0; // coefficient of X^2
+    const b = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
+    const c = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
     return Math.quadratic(a, b, c);
   }
 }
