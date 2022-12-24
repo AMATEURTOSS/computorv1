@@ -9,7 +9,7 @@ describe("Equation constructor", () => {
   });
 
   it("should work with Term[]", () => {
-    const equation = new Equation([new Term("5 * X ^ 0")], [new Term("4 * X ^ 2")]);
+    const equation = new Equation([new Term("5*x^0")], [new Term("4*x^2")]);
     expect(equation).toBeInstanceOf(Equation);
   });
 });
