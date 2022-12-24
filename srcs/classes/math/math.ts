@@ -25,10 +25,10 @@ export class Math {
   }
 
   /**
-   * @name quadratic
+   * @name solveQuadraticEquation
    * @description Solve a quadratic equation
    */
-  static quadratic(a: number, b: number, c: number): number[] {
+  static solveQuadraticEquation(a: number, b: number, c: number): number[] {
     const delta = b * b - 4 * a * c;
     if (delta < 0) return [];
     if (delta === 0) return [-b / (2 * a)];
