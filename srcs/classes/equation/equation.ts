@@ -77,10 +77,11 @@ export class Equation {
 
   public getDiscriminant(): number {
     if (this.degree === 1) return 0;
-    const a = this.lhs[2]?.coefficient ?? 0; // coefficient of X^2
-    const b = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
-    const c = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
-    return Math.discriminant(a, b, c);
+    return Math.discriminant(
+      this.getQuadraticCoefficient(),
+      this.getLinearCoefficient(),
+      this.getConstantCoefficient(),
+    );
   }
 
   public solveEquation(): number[] {
@@ -90,15 +91,35 @@ export class Equation {
   }
 
   private solveQuadraticEquation(): number[] {
-    const a = this.lhs[2]?.coefficient ?? 0; // coefficient of X^2
-    const b = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
-    const c = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
-    return Math.solveQuadraticEquation(a, b, c);
+    return Math.solveQuadraticEquation(
+      this.getQuadraticCoefficient(),
+      this.getLinearCoefficient(),
+      this.getConstantCoefficient(),
+    );
   }
 
   private solveLinearEquation(): number[] {
-    const a = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
-    const b = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
-    return Math.solveLinearEquation(a, b);
+    return Math.solveLinearEquation(this.getLinearCoefficient(), this.getConstantCoefficient());
+  }
+
+  private getQuadraticCoefficient(): number {
+    return this.lhs.reduce((acc, curr) => {
+      if (curr.exponent === 2) acc = curr.coefficient;
+      return acc;
+    }, 0);
+  }
+
+  private getLinearCoefficient(): number {
+    return this.lhs.reduce((acc, curr) => {
+      if (curr.exponent === 1) acc = curr.coefficient;
+      return acc;
+    }, 0);
+  }
+
+  private getConstantCoefficient(): number {
+    return this.lhs.reduce((acc, curr) => {
+      if (curr.exponent === 0) acc = curr.coefficient;
+      return acc;
+    }, 0);
   }
 }
