@@ -10,6 +10,7 @@ import { Term } from "../term";
 export class Equation {
   public lhs: Term[] = [];
   public rhs: Term[] = [];
+  public degree: number = NaN;
 
   constructor(lhs: string, rhs: string);
   constructor(lhs: Term[], rhs: Term[]);
@@ -19,12 +20,15 @@ export class Equation {
       rhs = this.parseEquation(rhs);
       lhs.split(/(?=[+-])/g).forEach((term) => this.lhs.push(new Term(term)));
       rhs.split(/(?=[+-])/g).forEach((term) => this.rhs.push(new Term(term)));
-      this.reduce();
     } else if (Array.isArray(lhs) && Array.isArray(rhs)) {
       this.lhs = lhs;
       this.rhs = rhs;
-      this.reduce();
     }
+    this.reduce();
+    this.degree = this.lhs.reduce((acc, curr) => {
+      if (isNaN(acc) || curr.exponent > acc) acc = curr.exponent;
+      return acc;
+    }, NaN);
   }
 
   /**
@@ -72,8 +76,7 @@ export class Equation {
   }
 
   public getDiscriminant(): number {
-    const degree = this.lhs.length - 1;
-    if (degree === 1) return 0;
+    if (this.degree === 1) return 0;
     const a = this.lhs[2]?.coefficient ?? 0; // coefficient of X^2
     const b = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
     const c = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
@@ -81,9 +84,8 @@ export class Equation {
   }
 
   public solveEquation(): number[] {
-    const degree = this.lhs.length - 1;
-    if (degree === 2) return this.solveQuadraticEquation();
-    if (degree === 1) return this.solveLinearEquation();
+    if (this.degree === 2) return this.solveQuadraticEquation();
+    if (this.degree === 1) return this.solveLinearEquation();
     return [];
   }
 

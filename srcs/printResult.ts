@@ -4,7 +4,7 @@ export function printResult(equation: Equation): void {
   const discriminantResult = equation.getDiscriminant();
 
   console.log(`Reduced form: ${equation.toString()}`);
-  console.log(`Polynomial degree: ${equation.lhs.length - 1}`);
+  console.log(`Polynomial degree: ${equation.degree}`);
   if (discriminantResult > 0)
     console.log(`Discriminant is strictly positive, the two solutions are:\n${equation.solveEquation().join("\n")}`);
   if (discriminantResult === 0)
