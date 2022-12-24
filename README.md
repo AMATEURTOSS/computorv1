@@ -1,5 +1,15 @@
 # computorv1
 ## Abstract
-이 프로젝트의 목표는 다른 42 프로젝트에 도움이 될 수 있는 기본 수학 도구를 다루는 것에 익숙해지는 것입니다.  
-"수학을 위해 수학을 하지 않습니다"하지만 이러한 도구가 필요한 프로젝트에 대한 진보적이고 편안한 접근 방식을 개발할 수 있습니다.  
-이 주제에 대한 언어는 선택 사항입니다.
+이차 이하의 방적식을 푸는 프로그램입니다.  
+## Usage
+```shell
+npm install # install dependencies
+npm run build # build program
+npm start -- "1 * x ^ 0 + 2 * x ^ 1 = 0" # run program
+```
+## Example of equation
+```shell
+npm start -- "(−21 * x ^ 0) + (4 * x ^ 1) + (1 * x ^ 2) = 0"
+npm start -- "1 * x ^ 0 + 2 * x ^ 1 + 3 * x ^ 2 = 0"
+npm start -- "1 * x ^ 0 + 2 * x ^ 1 + 3 * x ^ 2 + 4 * x ^ 3 = 0" # cubic equation is not supported
+```
