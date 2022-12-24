@@ -19,9 +19,11 @@ export class Equation {
       rhs = this.parseEquation(rhs);
       lhs.split(/(?=[+-])/g).forEach((term) => this.lhs.push(new Term(term)));
       rhs.split(/(?=[+-])/g).forEach((term) => this.rhs.push(new Term(term)));
+      this.reduce();
     } else if (Array.isArray(lhs) && Array.isArray(rhs)) {
       this.lhs = lhs;
       this.rhs = rhs;
+      this.reduce();
     }
   }
 
@@ -41,12 +43,12 @@ export class Equation {
    * @name reduce
    * @description Reduce the equation to its simplest form.
    */
-  public reduce(): Equation {
+  private reduce() {
     const lhs = this.lhs.slice();
     const rhs = this.rhs.slice();
     rhs.forEach((term) => lhs.push(new Term(term.coefficient * -1, term.exponent)));
     lhs.sort((a, b) => a.exponent - b.exponent);
-    const reducedLhs = lhs.reduce((acc: Term[], curr) => {
+    this.lhs = lhs.reduce((acc: Term[], curr) => {
       const last = acc[acc.length - 1];
       if (last?.exponent === curr.exponent) {
         last.coefficient += curr.coefficient;
@@ -55,7 +57,7 @@ export class Equation {
       acc.push(curr);
       return acc;
     }, []);
-    return new Equation(reducedLhs, []); // rhs should be empty
+    this.rhs = [];
   }
 
   /**
