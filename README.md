@@ -6,11 +6,5 @@
 ```shell
 npm install # install dependencies
 npm run build # build program
-npm start -- "1 * x ^ 0 + 2 * x ^ 1 = 0" # run program
-```
-## Example of equation
-```shell
-npm start -- "(−21 * x ^ 0) + (4 * x ^ 1) + (1 * x ^ 2) = 0"
-npm start -- "1 * x ^ 0 + 2 * x ^ 1 + 3 * x ^ 2 = 0"
-npm start -- "1 * x ^ 0 + 2 * x ^ 1 + 3 * x ^ 2 + 4 * x ^ 3 = 0" # cubic equation is not supported
+npm start -- "1 * x ^ 0 + 2 * x ^ 1 = 0"
 ```

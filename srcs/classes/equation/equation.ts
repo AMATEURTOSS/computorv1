@@ -69,6 +69,15 @@ export class Equation {
     return `${lhs} = ${rhs}`;
   }
 
+  public getDiscriminant(): number {
+    const degree = this.lhs.length - 1;
+    if (degree === 1) return 0;
+    const a = this.lhs[2]?.coefficient ?? 0; // coefficient of X^2
+    const b = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
+    const c = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
+    return Math.discriminant(a, b, c);
+  }
+
   public solveEquation(): number[] {
     const degree = this.lhs.length - 1;
     if (degree === 2) return this.solveQuadraticEquation();

@@ -25,6 +25,14 @@ export class Math {
   }
 
   /**
+   * @name discriminant
+   * @description Calculate the discriminant of a quadratic equation
+   */
+  static discriminant(a: number, b: number, c: number): number {
+    return b ** 2 - 4 * a * c;
+  }
+
+  /**
    * @name solveQuadraticEquation
    * @description Solve a quadratic equation
    */
