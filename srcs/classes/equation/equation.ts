@@ -58,6 +58,7 @@ export class Equation {
   public solveEquation(): number[] {
     const degree = this.lhs.length - 1;
     if (degree === 2) return this.solveQuadraticEquation();
+    if (degree === 1) return this.solveLinearEquation();
     return [];
   }
 
@@ -66,5 +67,11 @@ export class Equation {
     const b = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
     const c = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
     return Math.solveQuadraticEquation(a, b, c);
+  }
+
+  private solveLinearEquation(): number[] {
+    const a = this.lhs[1]?.coefficient ?? 0; // coefficient of X^1
+    const b = this.lhs[0]?.coefficient ?? 0; // coefficient of X^0
+    return Math.solveLinearEquation(a, b);
   }
 }

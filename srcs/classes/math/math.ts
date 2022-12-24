@@ -35,4 +35,12 @@ export class Math {
     const sqrtDelta = this.sqrt(delta);
     return [(-b + sqrtDelta) / (2 * a), (-b - sqrtDelta) / (2 * a)];
   }
+
+  /**
+   * @name solveLinearEquation
+   */
+  static solveLinearEquation(a: number, b: number): number[] {
+    if (a === 0) return [];
+    return [-b / a];
+  }
 }
