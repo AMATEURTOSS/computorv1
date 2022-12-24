@@ -11,8 +11,8 @@ export class Term {
   constructor(coefficient: number, exponent: number);
   constructor(arg1: string | number, arg2?: number) {
     if (typeof arg1 === "string") {
-      arg1 = arg1.replace(/ /g, "");
-      const [coefficient, exponent] = arg1.split(/\*X\^|\*x\^/g);
+      if (arg1 === "0") arg1 = "0*x^0";
+      const [coefficient, exponent] = arg1.split("*x^");
       this.coefficient = +coefficient;
       this.exponent = +exponent;
       if (isNaN(this.coefficient) || isNaN(this.exponent)) throw new InvalidTermError();

@@ -15,12 +15,26 @@ export class Equation {
   constructor(lhs: Term[], rhs: Term[]);
   constructor(lhs: string | Term[], rhs: string | Term[]) {
     if (typeof lhs === "string" && typeof rhs === "string") {
+      lhs = this.parseEquation(lhs);
+      rhs = this.parseEquation(rhs);
       lhs.split(/(?=[+-])/g).forEach((term) => this.lhs.push(new Term(term)));
       rhs.split(/(?=[+-])/g).forEach((term) => this.rhs.push(new Term(term)));
     } else if (Array.isArray(lhs) && Array.isArray(rhs)) {
       this.lhs = lhs;
       this.rhs = rhs;
     }
+  }
+
+  /**
+   * @name parseEquation
+   * @description Parse the equation
+   */
+  private parseEquation(equation: string): string {
+    let ret = equation;
+    ret = ret.replace(/ /g, "");
+    ret = ret.replace(/\+-/g, "-");
+    ret = ret.toLowerCase();
+    return ret;
   }
 
   /**
