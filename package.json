@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "tsc",
-    "start": "node dist/main.js",
+    "start": "tsc && node dist/main.js",
     "test": "jest",
     "format": "prettier --write \"srcs/**/*.ts\""
   },
