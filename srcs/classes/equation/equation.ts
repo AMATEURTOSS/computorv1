@@ -5,30 +5,27 @@ import { Term } from "../term";
  * @name Equation
  * @example
  *        const equation = new Equation("1+1", "2");
- *        const equation2 = new Equation([new Term("5*X^0")], [new Term("4*X^2")]);
  */
 export class Equation {
   public lhs: Term[] = [];
   public rhs: Term[] = [];
-  public degree: number = NaN;
+  public degree: number = 0;
+  public quadraticCoefficient: number = 0;
+  public linearCoefficient: number = 0;
+  public constantCoefficient: number = 0;
 
-  constructor(lhs: string, rhs: string);
-  constructor(lhs: Term[], rhs: Term[]);
-  constructor(lhs: string | Term[], rhs: string | Term[]) {
-    if (typeof lhs === "string" && typeof rhs === "string") {
-      lhs = this.parseEquation(lhs);
-      rhs = this.parseEquation(rhs);
-      lhs.split(/(?=[+-])/g).forEach((term) => this.lhs.push(new Term(term)));
-      rhs.split(/(?=[+-])/g).forEach((term) => this.rhs.push(new Term(term)));
-    } else if (Array.isArray(lhs) && Array.isArray(rhs)) {
-      this.lhs = lhs;
-      this.rhs = rhs;
-    }
+  constructor(lhs: string, rhs: string) {
+    this.parseEquation(lhs)
+      .split(/(?=[+-])/g)
+      .forEach((term) => this.lhs.push(new Term(term)));
+    this.parseEquation(rhs)
+      .split(/(?=[+-])/g)
+      .forEach((term) => this.rhs.push(new Term(term)));
     this.reduce();
-    this.degree = this.lhs.reduce((acc, curr) => {
-      if (isNaN(acc) || curr.exponent > acc) acc = curr.exponent;
-      return acc;
-    }, NaN);
+    this.degree = this.lhs.reduce(this.getDegree, 0);
+    this.quadraticCoefficient = this.lhs.reduce(this.getQuadraticCoefficient, 0);
+    this.linearCoefficient = this.lhs.reduce(this.getLinearCoefficient, 0);
+    this.constantCoefficient = this.lhs.reduce(this.getConstantCoefficient, 0);
   }
 
   /**
@@ -77,11 +74,7 @@ export class Equation {
 
   public getDiscriminant(): number {
     if (this.degree === 1) return 0;
-    return Math.discriminant(
-      this.getQuadraticCoefficient(),
-      this.getLinearCoefficient(),
-      this.getConstantCoefficient(),
-    );
+    return Math.discriminant(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
   }
 
   public solveEquation(): number[] {
@@ -91,35 +84,15 @@ export class Equation {
   }
 
   private solveQuadraticEquation(): number[] {
-    return Math.solveQuadraticEquation(
-      this.getQuadraticCoefficient(),
-      this.getLinearCoefficient(),
-      this.getConstantCoefficient(),
-    );
+    return Math.solveQuadraticEquation(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
   }
 
   private solveLinearEquation(): number[] {
-    return Math.solveLinearEquation(this.getLinearCoefficient(), this.getConstantCoefficient());
+    return Math.solveLinearEquation(this.linearCoefficient, this.constantCoefficient);
   }
 
-  private getQuadraticCoefficient(): number {
-    return this.lhs.reduce((acc, curr) => {
-      if (curr.exponent === 2) acc = curr.coefficient;
-      return acc;
-    }, 0);
-  }
-
-  private getLinearCoefficient(): number {
-    return this.lhs.reduce((acc, curr) => {
-      if (curr.exponent === 1) acc = curr.coefficient;
-      return acc;
-    }, 0);
-  }
-
-  private getConstantCoefficient(): number {
-    return this.lhs.reduce((acc, curr) => {
-      if (curr.exponent === 0) acc = curr.coefficient;
-      return acc;
-    }, 0);
-  }
+  private getDegree = (acc: number, curr: Term): number => (curr.exponent > acc ? curr.exponent : acc);
+  private getQuadraticCoefficient = (acc: number, curr: Term): number => (curr.exponent === 2 ? curr.coefficient : acc);
+  private getLinearCoefficient = (acc: number, curr: Term): number => (curr.exponent === 1 ? curr.coefficient : acc);
+  private getConstantCoefficient = (acc: number, curr: Term): number => (curr.exponent === 0 ? curr.coefficient : acc);
 }
