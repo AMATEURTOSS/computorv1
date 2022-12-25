@@ -24,42 +24,6 @@ export class Equation {
     this.constantCoefficient = this.lhs.reduce(this.getConstantCoefficient, 0);
   }
 
-  /**
-   * @name parseSide
-   * @description Parse the side of the equation.
-   */
-  private parseSide(side: string): string[] {
-    let ret = side;
-    ret = ret.replace(/ /g, "");
-    ret = ret.replace(/\+-/g, "-");
-    ret = ret.toLowerCase();
-    return ret.split(/(?=[+-])/g);
-  }
-
-  /**
-   * @name reduce
-   * @description Reduce the equation to its simplest form.
-   */
-  private reduce() {
-    const lhs = this.lhs.slice();
-    const rhs = this.rhs.slice();
-    rhs.forEach((term) => lhs.push(new Term(term.coefficient * -1, term.exponent)));
-    lhs.sort((a, b) => a.exponent - b.exponent);
-    this.lhs = lhs.reduce((acc: Term[], curr) => {
-      const last = acc[acc.length - 1];
-      if (last?.exponent === curr.exponent) {
-        last.coefficient += curr.coefficient;
-        return acc;
-      }
-      acc.push(curr);
-      return acc;
-    }, []);
-    this.rhs = [];
-  }
-
-  /**
-   * @name toString
-   */
   public toString(): string {
     const lhs: string | number = this.lhs.map((term) => term.toString()).join(" + ");
     const rhs: string | number = this.rhs.map((term) => term.toString()).join(" + ");
@@ -78,6 +42,34 @@ export class Equation {
       return Math.solveQuadraticEquation(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
     if (this.degree === 1) return Math.solveLinearEquation(this.linearCoefficient, this.constantCoefficient);
     return [];
+  }
+
+  private parseSide(side: string): string[] {
+    let ret = side;
+    ret = ret.replace(/ /g, "");
+    ret = ret.replace(/\+-/g, "-");
+    ret = ret.toLowerCase();
+    return ret.split(/(?=[+-])/g);
+  }
+
+  /**
+   * @description Reduce the equation to its simplest form.
+   */
+  private reduce() {
+    const lhs = this.lhs.slice();
+    const rhs = this.rhs.slice();
+    rhs.forEach((term) => lhs.push(new Term(term.coefficient * -1, term.exponent)));
+    lhs.sort((a, b) => a.exponent - b.exponent);
+    this.lhs = lhs.reduce((acc: Term[], curr) => {
+      const last = acc[acc.length - 1];
+      if (last?.exponent === curr.exponent) {
+        last.coefficient += curr.coefficient;
+        return acc;
+      }
+      acc.push(curr);
+      return acc;
+    }, []);
+    this.rhs = [];
   }
 
   private getDegree = (acc: number, curr: Term): number => (curr.exponent > acc ? curr.exponent : acc);
