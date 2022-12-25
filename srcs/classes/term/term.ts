@@ -1,9 +1,6 @@
 import { x, powerOf } from "../../constant";
 import { InvalidTermError, TooHighExponentError } from "../../error";
 
-/**
- * @name Term
- */
 export class Term {
   public coefficient: number;
   public exponent: number;
@@ -24,9 +21,6 @@ export class Term {
     }
   }
 
-  /**
-   * @name toString
-   */
   public toString(): string {
     return `(${this.coefficient}${x}${powerOf[this.exponent]})`;
   }

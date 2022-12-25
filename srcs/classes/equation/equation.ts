@@ -1,11 +1,6 @@
 import { Math } from "../math";
 import { Term } from "../term";
 
-/**
- * @name Equation
- * @example
- *        const equation = new Equation("1+1", "2");
- */
 export class Equation {
   public lhs: Term[] = [];
   public rhs: Term[] = [];
