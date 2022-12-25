@@ -74,17 +74,10 @@ export class Equation {
   }
 
   public solveEquation(): number[] {
-    if (this.degree === 2) return this.solveQuadraticEquation();
-    if (this.degree === 1) return this.solveLinearEquation();
+    if (this.degree === 2)
+      return Math.solveQuadraticEquation(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
+    if (this.degree === 1) return Math.solveLinearEquation(this.linearCoefficient, this.constantCoefficient);
     return [];
-  }
-
-  private solveQuadraticEquation(): number[] {
-    return Math.solveQuadraticEquation(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
-  }
-
-  private solveLinearEquation(): number[] {
-    return Math.solveLinearEquation(this.linearCoefficient, this.constantCoefficient);
   }
 
   private getDegree = (acc: number, curr: Term): number => (curr.exponent > acc ? curr.exponent : acc);
