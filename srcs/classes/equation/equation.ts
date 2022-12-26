@@ -49,6 +49,7 @@ export class Equation {
     lhs.sort((a, b) => a.exponent - b.exponent);
     this.lhs = lhs.reduce((acc: Term[], curr) => {
       const last = acc[acc.length - 1];
+      if (curr.coefficient === 0) return acc;
       if (last?.exponent === curr.exponent) {
         last.coefficient += curr.coefficient;
         return acc;
