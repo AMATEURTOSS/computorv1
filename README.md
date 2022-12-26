@@ -7,15 +7,15 @@
 ```shell
 npm install # install dependencies
 npm run build # build program
-npm start -- "1 * x ^ 0 + 2 * x ^ 1 = 0"
+npm start -- "x ^ 0 + 2x ^ 1 = 0"
 ```
 
 ## Result
 ```shell
-~/Project/computorv1 git:(main) npm start -- "1 * x ^ 0 + 2 * x ^ 1 = 0"
+~/Project/computorv1 git:(main) npm start -- "x ^ 0 + 2x ^ 1 = 0"
 
 > start
-> tsc && node dist/main.js 1 * x ^ 0 + 2 * x ^ 1 = 0
+> tsc && node dist/main.js x ^ 0 + 2x ^ 1 = 0
 
 Reduced form: (1𝑥⁰) + (2𝑥¹) = 0
 Polynomial degree: 1
