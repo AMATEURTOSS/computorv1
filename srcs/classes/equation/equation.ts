@@ -59,6 +59,7 @@ export class Equation {
       acc.push(curr);
       return acc;
     }, []);
+    this.lhs = this.lhs.filter((term) => term.coefficient !== 0);
     this.rhs = [];
   }
 
