@@ -9,12 +9,12 @@ describe("Term constructor", () => {
   });
 
   test("should work with string", () => {
-    const term = new Term("1*x^0");
+    const term = new Term("1x^0");
     expect(term.coefficient).toBe(1);
     expect(term.exponent).toBe(0);
   });
 
   test("should throw an error with big exponent", () => {
-    expect(() => new Term("1*x^3")).toThrow(TooHighExponentError);
+    expect(() => new Term("1x^3")).toThrow(TooHighExponentError);
   });
 });

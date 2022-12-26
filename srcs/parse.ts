@@ -16,6 +16,7 @@ export function parseArgs(args: string[]): [string, string] {
 
   const parsedEquation = equation
     .replace(/ /g, "")
+    .replace(/\*/g, "")
     .replace(/-\+/g, "-")
     .replace(/\+-/g, "-")
     .replace(/--/g, "+")
