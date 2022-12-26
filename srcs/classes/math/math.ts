@@ -38,7 +38,7 @@ export class Math {
 
   static solveLinearEquation(a: number, b: number): number[] {
     if (a === 0) return [];
-    return [-b / a];
+    return [-(b / a)];
   }
 
   static solveConstantEquation(a: number): number[] {

@@ -11,7 +11,7 @@ export class Term {
     if (typeof arg1 === "string") {
       if (Number.isInteger(+arg1)) arg1 = `${arg1}x^0`;
       const [coefficient, exponent] = arg1.split("x");
-      this.coefficient = +coefficient ?? 1;
+      this.coefficient = coefficient === "" ? 1 : +coefficient;
       this.exponent = exponent.slice(1) === "" ? 1 : +exponent.slice(1);
       if (isNaN(this.coefficient) || isNaN(this.exponent)) throw new InvalidTermError();
       if (this.exponent > 2) throw new TooHighExponentError();
