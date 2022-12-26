@@ -1,3 +1,4 @@
+import { TooHighExponentError } from "../../error";
 import { Math } from "../math";
 import { Term } from "../term";
 
@@ -36,7 +37,8 @@ export class Equation {
     if (this.degree === 2)
       return Math.solveQuadraticEquation(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
     if (this.degree === 1) return Math.solveLinearEquation(this.linearCoefficient, this.constantCoefficient);
-    return [];
+    if (this.degree === 0) return Math.solveConstantEquation(this.constantCoefficient);
+    throw new TooHighExponentError();
   }
 
   /**

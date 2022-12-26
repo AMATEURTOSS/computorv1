@@ -1,7 +1,4 @@
 export class Math {
-  /**
-   * @name abs
-   */
   static abs(num: number): number {
     return num < 0 ? -num : num;
   }
@@ -25,17 +22,12 @@ export class Math {
   }
 
   /**
-   * @name discriminant
    * @description Calculate the discriminant of a quadratic equation
    */
   static discriminant(a: number, b: number, c: number): number {
     return b ** 2 - 4 * a * c;
   }
 
-  /**
-   * @name solveQuadraticEquation
-   * @description Solve a quadratic equation
-   */
   static solveQuadraticEquation(a: number, b: number, c: number): number[] {
     const delta = b * b - 4 * a * c;
     if (delta < 0) return [];
@@ -44,11 +36,13 @@ export class Math {
     return [(-b + sqrtDelta) / (2 * a), (-b - sqrtDelta) / (2 * a)];
   }
 
-  /**
-   * @name solveLinearEquation
-   */
   static solveLinearEquation(a: number, b: number): number[] {
     if (a === 0) return [];
     return [-b / a];
+  }
+
+  static solveConstantEquation(a: number): number[] {
+    if (a === 0) return [Infinity];
+    return [];
   }
 }
