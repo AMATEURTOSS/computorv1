@@ -34,4 +34,6 @@ describe("Equation solve method", () => {
   it("Solve4", () => testSolution("2 * X^1", "-21 * X^2", ["-0.10", "0.00"]));
   it("Solve5", () => testSolution("1 * X^2", "13 * X^0", ["-3.61", "3.61"]));
   it("Solve6", () => testSolution("2 * X^2 - -3 * X^1", "0", ["-1.50", "0.00"]));
+  it("Solve7", () => testSolution("0 * X^2 - -32 * X^1", "0", ["0.00"]));
+  it("Solve8", () => testSolution("0 * X^0 + 0 * X^1 + 0 * X^2", "1 * X^0", []));
 });
