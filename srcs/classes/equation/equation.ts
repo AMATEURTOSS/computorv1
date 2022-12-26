@@ -10,8 +10,8 @@ export class Equation {
   public constantCoefficient: number = 0;
 
   constructor(lhs: string, rhs: string) {
-    this.parseSide(lhs).forEach((term) => this.lhs.push(new Term(term)));
-    this.parseSide(rhs).forEach((term) => this.rhs.push(new Term(term)));
+    lhs.split(/(?=[+-])/g).forEach((term) => this.lhs.push(new Term(term)));
+    rhs.split(/(?=[+-])/g).forEach((term) => this.rhs.push(new Term(term)));
     this.reduce();
     this.degree = this.lhs.reduce(this.getDegree, 0);
     this.quadraticCoefficient = this.lhs.reduce(this.getQuadraticCoefficient, 0);
@@ -37,14 +37,6 @@ export class Equation {
       return Math.solveQuadraticEquation(this.quadraticCoefficient, this.linearCoefficient, this.constantCoefficient);
     if (this.degree === 1) return Math.solveLinearEquation(this.linearCoefficient, this.constantCoefficient);
     return [];
-  }
-
-  private parseSide(side: string): string[] {
-    let ret = side;
-    ret = ret.replace(/ /g, "");
-    ret = ret.replace(/\+-/g, "-");
-    ret = ret.toLowerCase();
-    return ret.split(/(?=[+-])/g);
   }
 
   /**

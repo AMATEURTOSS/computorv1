@@ -1,23 +1,27 @@
 import { Equation } from "./equation";
 import { x, powerOf } from "../../constant";
+import { parseArgs } from "../../parse";
 
 describe("Equation constructor", () => {
   it("should work with string", () => {
-    const equation = new Equation("5 * X^0 + 4 * X^1 - 9.3 * X^2", "1 * X^0");
+    const [lhs, rhs] = parseArgs(["", "", "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"]);
+    const equation = new Equation(lhs, rhs);
     expect(equation).toBeInstanceOf(Equation);
   });
 });
 
 describe("Equation toString", () => {
   it("should return a string representation of the equation", () => {
-    const equation = new Equation("5 * X^0 + 4 * X^1 - 9.3 * X^2", "1 * X^0");
+    const [lhs, rhs] = parseArgs(["", "", "5 * X^0 + 4 * X^1 - 9.3 * X^2 = 1 * X^0"]);
+    const equation = new Equation(lhs, rhs);
     expect(equation.toString()).toBe(`(4${x}${powerOf[0]}) + (4${x}${powerOf[1]}) + (-9.3${x}${powerOf[2]}) = 0`);
   });
 });
 
 describe("Equation solve method", () => {
   const testSolution = (lhs: string, rhs: string, expected: Array<string>) => {
-    const equation = new Equation(lhs, rhs);
+    const [parsedLhs, parsedRhs] = parseArgs(["", "", `${lhs} = ${rhs}`]);
+    const equation = new Equation(parsedLhs, parsedRhs);
     const solution = equation
       .solveEquation()
       .sort()

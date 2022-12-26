@@ -14,7 +14,8 @@ export function parseArgs(args: string[]): [string, string] {
   if (args.length >= 4) throw new TooManyArgError();
   if (!equation?.includes("=")) throw new InvalidEquationError();
 
-  const [lhs, rhs] = equation.replace(/ /g, "").split("=");
+  const parsedEquation = equation.replace(/ /g, "").replace(/\+-/g, "-").toLowerCase();
+  const [lhs, rhs] = parsedEquation.split("=");
 
   return [lhs.trim(), rhs.trim()];
 }
