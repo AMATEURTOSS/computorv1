@@ -8,10 +8,22 @@ describe("Term constructor", () => {
     expect(term.exponent).toBe(2);
   });
 
-  test("should work with string", () => {
+  test("should work with 1x^0", () => {
     const term = new Term("1x^0");
     expect(term.coefficient).toBe(1);
     expect(term.exponent).toBe(0);
+  });
+
+  test("should work with 42x", () => {
+    const term = new Term("42x");
+    expect(term.coefficient).toBe(42);
+    expect(term.exponent).toBe(1);
+  });
+
+  test("should work with 42x^2", () => {
+    const term = new Term("42x^2");
+    expect(term.coefficient).toBe(42);
+    expect(term.exponent).toBe(2);
   });
 
   test("should throw an error with big exponent", () => {
